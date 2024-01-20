@@ -2,14 +2,17 @@
     "manifest_version": 3,
     "name": "Copy Paste Extension",
     "version": "1.0",
+    "permissions": [
+      "http://localhost:5000/*",
+      "http://client.cors-api.appspot.com",
+      "https://api.topmediai.com/v1/text2speech" 
+    ],
     "action": {
       "default_popup": "popup.html"
     },
-    "background": {
-      "service_worker": "background.js"
-    },
     "host_permissions": [
-      "clipboard"
+      "clipboard",
+      "activeTab"
     ]
 }
   
