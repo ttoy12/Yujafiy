@@ -27,7 +27,7 @@ let processButton = document.getElementById('processButton');
 processButton.addEventListener('click', function() {
     // Get the text from the text area
     let pastedText = document.getElementById('textArea').value;
-    console.log('Pasted text!: ' + pastedText);
+    console.log('Pasted text: ' + pastedText);
     processText(pastedText);
 });
 
