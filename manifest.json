@@ -1,15 +1,15 @@
 {
     "manifest_version": 3,
-    "name": "Copy Paste Extension",
+    "name": "Yujafiy",
     "version": "1.0",
     "action": {
       "default_popup": "popup.html"
     },
-    "background": {
-      "service_worker": "background.js"
-    },
-    "host_permissions": [
-      "clipboard"
-    ]
+    "permissions": [
+        "clipboardRead"
+    ],
+    "icons": {
+        "512": "voice.png"
+    }
 }
   
