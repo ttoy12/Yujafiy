@@ -5,3 +5,5 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       chrome.runtime.sendMessage({ action: 'showAlert', h1Content: h1Content });
     }
 });
+
+// hi
