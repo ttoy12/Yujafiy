@@ -5,16 +5,20 @@
     "permissions": [
       "http://localhost:5000/*",
       "http://client.cors-api.appspot.com",
-      "https://api.topmediai.com/v1/text2speech" 
+      "https://api.topmediai.com/v1/text2speech",
+      "clipboardRead"
     ],
     "action": {
       "default_popup": "popup.html"
     },
-    "permissions": [
-        "clipboardRead"
-    ],
     "icons": {
         "512": "voice.png"
-    }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["*"],
+            "matches": ["https://files.topmediai.com/*"]
+        }
+    ]
 }
   

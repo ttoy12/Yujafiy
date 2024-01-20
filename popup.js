@@ -1,3 +1,15 @@
+// play audio function
+async function playAudioFiles(url_list) {
+    console.log("audio playing", url_list);
+    let audio = new Audio(url_list);
+    audio.play()
+    // for (let url of url_list) {
+    //     let audio = new Audio(url);
+    //     await new Promise(r => audio.onended = r);
+    //     audio.play();
+    // }
+}
+
 // Get the paste button
 let pasteButton = document.getElementById('pasteButton');
 
@@ -24,15 +36,22 @@ pasteButton.addEventListener('click', function() {
 let processButton = document.getElementById('processButton');
 
 // Add an event listener for the click event
-processButton.addEventListener('click', function() {
+processButton.addEventListener('click', async function() {
     // Get the text from the text area
     let pastedText = document.getElementById('textArea').value;
     console.log('Pasted text: ' + pastedText);
-    processText(pastedText);
+    
+    // get list of url .wav files
+    // url_list = await processText(pastedText);
+    url_list = 'https://files.topmediai.com/text_to_speech/audio/db983b1e-b7e4-11ee-b27f-00163e04354c.wav';
+    
+    // play audio files
+    await playAudioFiles(url_list);
 });
 
 // Function to process the text
-function processText(text) {
+
+async function processText(text) {
     const url = 'http://localhost:5000/api/process';
     const param = {
         id: 'test',
