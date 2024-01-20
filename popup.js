@@ -27,15 +27,42 @@ let processButton = document.getElementById('processButton');
 processButton.addEventListener('click', function() {
     // Get the text from the text area
     let pastedText = document.getElementById('textArea').value;
-
-    // Alert the pasted text
-    alert('Pasted text: ' + pastedText);
-
-    // Process the pasted text
+    console.log('Pasted text: ' + pastedText);
     processText(pastedText);
 });
 
 // Function to process the text
 function processText(text) {
-    // Add your text processing code here
+    const url = 'http://localhost:5000/api/process';
+    const param = {
+        id: 'test',
+        sentences: [text],
+        voice: 'default'
+    };
+
+    fetch(url, {
+        mode: 'cors',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(param)
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.log('failed');
+                // You can handle the error here
+                return Promise.reject(response);
+            }
+        })
+        .then(data => {
+            console.log(data['data']);
+            return data['data'];
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
 }
