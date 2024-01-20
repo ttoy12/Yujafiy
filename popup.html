@@ -3,11 +3,31 @@
 <head>
   <title>My Extension Popup</title>
   <link rel="stylesheet" type="text/css" href="popup.css">
+  <style>
+    body {
+      width: 300px;
+      height: 500px;
+      border: 15px;
+    }
+    button {
+      width: 100%;
+      height: 20%;
+      font-size: 16px;
+    }
+    .steps {
+        width: 100%;
+        height: 10%;
+        font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-  <div id="titleContainer">
-    <p id="titleText">Loading...</p>
+  <div id="instruction">
+    <span class="steps">1. Press show transcript</span>
+    <br>
+    <span class="steps">2. Press Voice Over</span>
   </div>
+  <button id="extractButton">Voice Over</button>
   <script src="popup.js"></script>
 </body>
 </html>

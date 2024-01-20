@@ -1,9 +1,13 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Listen for messages from content.js
-  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.type === 'h1TextArray') {
-      // Log the received <h1> texts to the console
-      console.log('Received <h1> texts:', message.texts);
-    }
+document.getElementById('extractButton').addEventListener('click', function() {
+  alert("popup.js");
+  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'extractH1' });
   });
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  console.log('Popup script received message:', request);
+  if (request.action === 'showAlert') {
+    alert(request.h1Content);
+  }
 });
