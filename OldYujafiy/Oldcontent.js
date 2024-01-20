@@ -2,7 +2,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     console.log('Content.js: Content script received message:', request);
   
     if (request.action === 'extractH1') {
-        alert("CONTENT.js");
       var h1Element = document.querySelector('h1');
   
       if (h1Element) {

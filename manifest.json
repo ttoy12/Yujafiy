@@ -1,22 +1,15 @@
 {
     "manifest_version": 3,
-    "name": "Yujafiy",
+    "name": "Copy Paste Extension",
     "version": "1.0",
-    "description": "Play sound from Chrome extension",
-    "permissions": [
-      "activeTab"
-    ],
     "action": {
-      "default_icon": "voice.png",
       "default_popup": "popup.html"
     },
     "background": {
-        "service_worker": "background.js"
+      "service_worker": "background.js"
     },
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["content.js"]
-        }
+    "host_permissions": [
+      "clipboard"
     ]
 }
+  
