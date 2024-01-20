@@ -17,7 +17,6 @@
         {
             "matches": ["<all_urls>"],
             "js": ["content.js"]
-            // "matches": ["https://canvas.ucsc.edu/courses/*/external_tools/6825"],
         }
     ]
 }
