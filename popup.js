@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Your code to interact with the DOM goes here
-    // Example: Get the title element with ID 'titleText'
-    var titleElement = document.getElementById('titleText');
-    if (titleElement) {
-      titleElement.textContent = 'Hello, Extension!';
+  // Listen for messages from content.js
+  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.type === 'h1TextArray') {
+      // Log the received <h1> texts to the console
+      console.log('Received <h1> texts:', message.texts);
     }
   });
+});
