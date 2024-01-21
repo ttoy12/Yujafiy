@@ -85,3 +85,19 @@ async function playAudioFiles(url_list) {
   // Start playing audio from the first URL in the list
   playNextAudio(0);
 }
+
+// Listen for messages from the background script
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    // Check if the message contains the expected data
+    if (message && message.data) {
+      // Access the data from the message
+      // var receivedData = message.data;
+      var videoPID = message.data.video_pid;
+      var transcriptTimestamped = message.data.transcriptTimestamped;
+
+      console.log("Received VIDEO ID: ", videoPID);
+      console.log("Received Transcript Timestamped: ", transcriptTimestamped)
+      // Do something with the data in your popup script
+    //   console.log("POPUP.js, received the data!", receivedData);
+    }
+  });

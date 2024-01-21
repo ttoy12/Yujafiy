@@ -34,11 +34,19 @@ function allEventHandler(debuggeeId, message, params) {
   
             // Parse the JSON string to a JavaScript object
             var json = JSON.parse(response.body);
+            video_pid = json['video']['videoPID']
+            console.log("VIDEO ID: ", video_pid, typeof(video_pid));
   
             // Access the elements at [video][transcriptTimestamped]
-            var transcriptTimestamped = json.video.transcriptText.transcript;
-            console.log('Type of response body: ', typeof transcriptTimestamped);
-            console.log('Transcript Timestamped: ', transcriptTimestamped.slice(0,1000));
+            var transcriptTimestamped = json.video.transcriptText.transcript.slice(0, 1000);
+            // console.log('Type of response body: ', typeof transcriptTimestamped);
+            console.log('Transcript Timestamped: ', transcriptTimestamped);
+            var dataToSend = {
+              video_pid: video_pid,
+              transcriptTimestamped: transcriptTimestamped
+            };
+            chrome.runtime.sendMessage({ data: dataToSend })
+            
         }
       });
     }
