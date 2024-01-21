@@ -28,13 +28,17 @@ const processButton = document.getElementById('processButton');
 // Add an event listener for the click event
 processButton.addEventListener('click', async function() {
     
+    // Get voice from dropdown
+    let voice = document.getElementById('voicesList').value;
+    console.log('Voice chosen: ' + voice);
+
       // Get the text from the text area
     let pastedText = document.getElementById('textArea').value;
     console.log('Pasted text: ' + pastedText);
     
     // Get list of URL .wav files asynchronously
     let urlList = [];
-    const data = await processText(pastedText);
+    const data = await processText(pastedText, voice);
     if ('data' in data){
         urlList = data['data'];
     }
@@ -45,12 +49,12 @@ processButton.addEventListener('click', async function() {
 
 // Function to process the text
 
-async function processText(text) {
+async function processText(text, voiceID) {
     const url = 'http://localhost:5000/api/process';
     const param = {
         id: 'test',
         sentences: [text],
-        voice: 'default'
+        voice: voiceID
     };
 
    // const res = await fetch();
@@ -84,6 +88,7 @@ async function processText(text) {
         });
     */
 }
+
 // play audio function
 async function playAudioFiles(url_list) {
     console.log("audio playing", url_list);
@@ -104,6 +109,7 @@ async function playAudioFiles(url_list) {
   // Start playing audio from the first URL in the list
   playNextAudio(0);
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     // Add event listener for close button
     var closeButton = document.getElementById("closeButton");
