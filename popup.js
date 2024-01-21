@@ -18,25 +18,12 @@ function updateButtonState() {
   }
   
   
-  // Function to handle button click
-  function handleButtonClick() {
-    // Set variables to undefined
-    videoID = null;
-    transcriptTimestamped = null;
-  
-    // Update button state
-    updateButtonState();
-  
-    // Add any additional logic you need after the button is pressed
-    console.log('Button pressed!');
-  }
-  
   // Call the function initially to set the initial state
   updateButtonState();
 
 // Add an event listener for the click event
 processButton.addEventListener('click', async function() {
-    
+    console.log("process button pressed");
     // Get voice from dropdown
     let voice = document.getElementById('voicesList').value;
     console.log('Voice chosen: ' + voice);
@@ -47,13 +34,25 @@ processButton.addEventListener('click', async function() {
     
     // Get list of URL .wav files asynchronously
     let urlList = [];
-    const data = await processText(videoID, transcript, voice);
-    if ('data' in data){
-        urlList = data['data'];
+    let data = null;
+    const response = await retreiveAudio(videoID, voice);
+    if (response.ok)
+    {
+        data = await response.json();
+
+    }else
+    {
+        data = await processText(videoID, transcript, voice);
     }
-    console.log(urlList);
-    // Play audio files asynchronously
-    await playAudioFiles(urlList);
+    console.log("data", data);
+    if(data){
+        if ('data' in data){
+            urlList = data['data'];
+        }
+        console.log(urlList);
+        // Play audio files asynchronously
+        await playAudioFiles(urlList);
+    }
   });
 
 // Function to process the text
@@ -61,7 +60,7 @@ processButton.addEventListener('click', async function() {
 async function processText(videoID, text, voiceID) {
     const url = 'http://localhost:5000/api/process';
     const param = {
-        id: videoID,
+        video_id: videoID,
         sentences: [text],
         voice: voiceID
     };
@@ -91,9 +90,10 @@ async function retreiveAudio(videoID, voiceID){
         },
     });
     console.log(res);
-    return res.json();
+    return res;
 }
 
+/*
 async function processJson(videoID, json, voiceID) {
     const url = 'http://localhost:5000/api/processjson';
     const param = {
@@ -116,22 +116,23 @@ async function processJson(videoID, json, voiceID) {
     return res.json();
 
 }
+*/
 
 // play audio function
 async function playAudioFiles(url_list) {
     console.log("audio playing", url_list);
 
-  const playNextAudio = async (index) => {
-    if (index < url_list.length) {
-        console.log('playing clip', index);
-      const audio = new Audio(url_list[index]);
-      
-      // Use the 'ended' event to play the next audio file in the list
-      audio.addEventListener('ended', () => {
-        playNextAudio(index + 1);
-      });
+    const playNextAudio = async (index) => {
+        if (index < url_list.length) {
+            console.log('playing clip', index);
+        const audio = new Audio(url_list[index]);
+        
+        // Use the 'ended' event to play the next audio file in the list
+        audio.addEventListener('ended', () => {
+            playNextAudio(index + 1);
+        });
 
-      audio.play();
+        audio.play();
     }
   };
   // Start playing audio from the first URL in the list
