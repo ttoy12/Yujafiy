@@ -1,27 +1,3 @@
-
-
-// Get the paste button
-let pasteButton = document.getElementById('pasteButton');
-
-// Add an event listener for the click event
-pasteButton.addEventListener('click', function() {
-    // Get the text area
-    let textArea = document.getElementById('textArea');
-
-    // Clear the text area
-    textArea.value = '';
-
-    // Use the Clipboard API to read the text from the clipboard
-    navigator.clipboard.readText()
-    .then(text => {
-        // Set the value of the text area to the text from the clipboard
-        textArea.value = text;
-    })
-    .catch(err => {
-        console.error('Failed to read clipboard contents: ', err);
-    });
-});
-
 // Get the process button
 const processButton = document.getElementById('processButton');
 
