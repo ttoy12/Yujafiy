@@ -14,7 +14,13 @@ processButton.addEventListener('click', async function() {
     
     // Get list of URL .wav files asynchronously
     let urlList = [];
-    const data = await processText(pastedText, voice);
+    const response = await retreiveAudio(videoID, voice);
+    if(response.ok){
+        const data = response.json();
+    }else{
+
+        const data = await processText(pastedText, voice);
+    }
     if ('data' in data){
         urlList = data['data'];
     }
@@ -58,7 +64,7 @@ async function retreiveAudio(videoID, voiceID){
         },
     });
     console.log(res);
-    return res.json();
+    return res;
 }
 
 async function processJson(videoID, json, voiceID) {
@@ -115,7 +121,8 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       var transcriptTimestamped = message.data.transcriptTimestamped;
 
       console.log("Received VIDEO ID: ", videoPID);
-      console.log("Received Transcript Timestamped: ", transcriptTimestamped)
+      console.log("Received Transcript Timestamped: ", transcriptTimestamped);
+
       // Do something with the data in your popup script
     //   console.log("POPUP.js, received the data!", receivedData);
     }
