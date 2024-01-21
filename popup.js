@@ -1,5 +1,38 @@
 // Get the process button
 const processButton = document.getElementById('processButton');
+let transcript = null;
+let videoID = null; 
+
+// Function to update button state based on videoPID
+function updateButtonState() {
+    const processButton = document.getElementById('processButton');
+    if (videoID === null || transcript === null) {
+      // If either videoPID or transcriptTimestamped is null, disable the button and change color to grey
+      processButton.disabled = true;
+      processButton.style.backgroundColor = '#808080'; // Grey color
+    } else {
+      // If both videoPID and transcriptTimestamped are not null, enable the button and change color to green
+      processButton.disabled = false;
+      processButton.style.backgroundColor = '#4CAF50'; // Green color
+    }
+  }
+  
+  
+  // Function to handle button click
+  function handleButtonClick() {
+    // Set variables to undefined
+    videoID = null;
+    transcriptTimestamped = null;
+  
+    // Update button state
+    updateButtonState();
+  
+    // Add any additional logic you need after the button is pressed
+    console.log('Button pressed!');
+  }
+  
+  // Call the function initially to set the initial state
+  updateButtonState();
 
 // Add an event listener for the click event
 processButton.addEventListener('click', async function() {
@@ -9,12 +42,12 @@ processButton.addEventListener('click', async function() {
     console.log('Voice chosen: ' + voice);
 
       // Get the text from the text area
-    let pastedText = document.getElementById('textArea').value;
-    console.log('Pasted text: ' + pastedText);
+    // let pastedText = document.getElementById('textArea').value;
+    // console.log('Pasted text: ' + pastedText);
     
     // Get list of URL .wav files asynchronously
     let urlList = [];
-    const data = await processText(pastedText, voice);
+    const data = await processText(videoID, transcript, voice);
     if ('data' in data){
         urlList = data['data'];
     }
@@ -111,11 +144,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message && message.data) {
       // Access the data from the message
       // var receivedData = message.data;
-      var videoPID = message.data.video_pid;
-      var transcriptTimestamped = message.data.transcriptTimestamped;
+      videoID = message.data.video_pid;
+      transcript = message.data.transcriptTimestamped;
 
-      console.log("Received VIDEO ID: ", videoPID);
-      console.log("Received Transcript Timestamped: ", transcriptTimestamped)
+      console.log("Received VIDEO ID: ", videoID);
+      console.log("Received Transcript Timestamped: ", transcript)
+      updateButtonState();
       // Do something with the data in your popup script
     //   console.log("POPUP.js, received the data!", receivedData);
     }
