@@ -18,19 +18,6 @@ function updateButtonState() {
   }
   
   
-  // Function to handle button click
-  function handleButtonClick() {
-    // Set variables to undefined
-    videoID = null;
-    transcriptTimestamped = null;
-  
-    // Update button state
-    updateButtonState();
-  
-    // Add any additional logic you need after the button is pressed
-    console.log('Button pressed!');
-  }
-  
   // Call the function initially to set the initial state
   updateButtonState();
 
@@ -51,11 +38,13 @@ processButton.addEventListener('click', async function() {
     const response = await retreiveAudio(videoID, voice);
     if (response.ok)
     {
-        data = response.json();
+        data = await response.json();
+
     }else
     {
         data = await processText(videoID, transcript, voice);
     }
+    console.log("data", data);
     if(data){
         if ('data' in data){
             urlList = data['data'];
