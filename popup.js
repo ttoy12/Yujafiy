@@ -123,18 +123,9 @@ async function playAudioFiles(url_list) {
     console.log("audio playing", url_list);
 
     const playNextAudio = async (index) => {
-        // Start video playback when playing the first audio clip
-        if (index === 0) {
-            // Find the video element on the page
-            const videoElement = document.querySelector('video');
+        // call content script to start video
+        sendMessageToContentScript('playVideo');
 
-            // Check if a video element is found
-            if (videoElement) {
-                // Start video playback
-                videoElement.play();
-            }
-        }
-        
         if (index < url_list.length) {
             console.log('playing clip', index);
         const audio = new Audio(url_list[index]);
@@ -153,6 +144,12 @@ async function playAudioFiles(url_list) {
 
 // Listen for messages from the background script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    if (message.action === 'webpageDocument') {
+        // Access the document of the web page from the popup
+        const webpageDocumentInPopup = message.document;
+        console.log(webpageDocumentInPopup);
+    }
+    
     // Check if the message contains the expected data
     if (message && message.data) {
       // Access the data from the message
@@ -168,3 +165,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     }
   });
   
+  // Function to send a message to the content script
+function sendMessageToContentScript(action) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        const activeTab = tabs[0];
+        chrome.tabs.sendMessage(activeTab.id, { action: action });
+    });
+}

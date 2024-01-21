@@ -52,3 +52,12 @@ function allEventHandler(debuggeeId, message, params) {
     }
   }
 }
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  if (message.action === 'getDocument') {
+      // Access the document of the web page here
+      const webpageDocument = document;
+      // Send the document to the popup script
+      chrome.runtime.sendMessage({ action: 'webpageDocument', document: webpageDocument });
+  }
+});
