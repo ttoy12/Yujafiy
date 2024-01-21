@@ -30,6 +30,15 @@ function allEventHandler(debuggeeId, message, params) {
           console.log(chrome.runtime.lastError.message);
         } else {
           console.log('Response body: ', response.body);
+          console.log('Type of response body: ', typeof response.body);
+  
+            // Parse the JSON string to a JavaScript object
+            var json = JSON.parse(response.body);
+  
+            // Access the elements at [video][transcriptTimestamped]
+            var transcriptTimestamped = json.video.transcriptText.transcript;
+            console.log('Type of response body: ', typeof transcriptTimestamped);
+            console.log('Transcript Timestamped: ', transcriptTimestamped.slice(0,1000));
         }
       });
     }
