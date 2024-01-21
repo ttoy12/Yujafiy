@@ -1,14 +1,4 @@
-// play audio function
-async function playAudioFiles(url_list) {
-    console.log("audio playing", url_list);
-    let audio = new Audio(url_list);
-    audio.play()
-    // for (let url of url_list) {
-    //     let audio = new Audio(url);
-    //     await new Promise(r => audio.onended = r);
-    //     audio.play();
-    // }
-}
+
 
 // Get the paste button
 let pasteButton = document.getElementById('pasteButton');
@@ -33,21 +23,26 @@ pasteButton.addEventListener('click', function() {
 });
 
 // Get the process button
-let processButton = document.getElementById('processButton');
+const processButton = document.getElementById('processButton');
 
 // Add an event listener for the click event
 processButton.addEventListener('click', async function() {
-    // Get the text from the text area
-    let pastedText = document.getElementById('textArea').value;
-    console.log('Pasted text: ' + pastedText);
-    
-    // get list of url .wav files
-    // url_list = await processText(pastedText);
-    url_list = 'https://files.topmediai.com/text_to_speech/audio/db983b1e-b7e4-11ee-b27f-00163e04354c.wav';
-    
-    // play audio files
-    await playAudioFiles(url_list);
-});
+    try {
+      // Get the text from the text area
+      let pastedText = document.getElementById('textArea').value;
+      console.log('Pasted text: ' + pastedText);
+      
+      // Get list of URL .wav files asynchronously
+      const urlList = await processText(pastedText);
+      console.log('urllist', urlList);
+      // Play audio files asynchronously
+      await playAudioFiles(urlList);
+  
+      console.log('Audio files played successfully');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  });
 
 // Function to process the text
 
@@ -59,6 +54,8 @@ async function processText(text) {
         voice: 'default'
     };
 
+   // const res = await fetch();
+   // return await res.json()
     fetch(url, {
         mode: 'cors',
         method: 'POST',
@@ -83,5 +80,23 @@ async function processText(text) {
         .catch(error => {
             console.error('Error:', error);
         });
+}
+// play audio function
+async function playAudioFiles(url_list) {
+    console.log("audio playing", url_list);
 
+  const playNextAudio = async (index) => {
+    if (index < url_list.length) {
+      const audio = new Audio(url_list[index]);
+      
+      // Use the 'ended' event to play the next audio file in the list
+      audio.addEventListener('ended', () => {
+        playNextAudio(index + 1);
+      });
+
+      audio.play();
+    }
+  };
+  // Start playing audio from the first URL in the list
+  playNextAudio(0);
 }
