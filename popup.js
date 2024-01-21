@@ -25,10 +25,10 @@ processButton.addEventListener('click', async function() {
 
 // Function to process the text
 
-async function processText(text, voiceID) {
+async function processText(videoID, text, voiceID) {
     const url = 'http://localhost:5000/api/process';
     const param = {
-        id: 'test',
+        id: videoID,
         sentences: [text],
         voice: voiceID
     };
@@ -45,24 +45,43 @@ async function processText(text, voiceID) {
     });
     console.log(res);
     return res.json();
-    /*
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                console.log('failed');
-                // You can handle the error here
-                return Promise.reject(response);
-            }
-        })
-        .then(data => {
-            console.log(data['data']);
-            return data['data'];
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    */
+
+}
+
+async function retreiveAudio(videoID, voiceID){
+    const url = `http://localhost:5000/api/retrieve?video_id=${videoID}&voice=${voiceID}`;
+    const res =  await fetch(url, {
+        mode: 'cors',
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    console.log(res);
+    return res.json();
+}
+
+async function processJson(videoID, json, voiceID) {
+    const url = 'http://localhost:5000/api/processjson';
+    const param = {
+        id: videoID,
+        entries: json,
+        voice: voiceID
+    };
+
+   // const res = await fetch();
+   // return await res.json()
+    const res =  await fetch(url, {
+        mode: 'cors',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(param)
+    });
+    console.log(res);
+    return res.json();
+
 }
 
 // play audio function
