@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "Yujafy",
+    "name": "Yujafiy",
     "version": "1.0",
     "permissions": [
       "http://localhost:5000/*",

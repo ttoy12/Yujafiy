@@ -12,9 +12,7 @@
         height: 100%;
         justify-content: center;
         align-items: center;
-        background-color: lightgreen;
-        border-width: 3px;
-        border-color: black;
+        background-color: #99ff66;
         border-radius: 10px;
       }
       #voicesList {
@@ -24,11 +22,13 @@
       }
       #textArea {
         margin-bottom: 10px;
-        width: 98.5%;
+        width: 97.5%;
         height: 200px;
         resize: none;
         text-align: center;
-        border: none;
+        border-color: black;
+        border-width: 1px;
+        border-style: solid;
       }
       .processButtonContainer {
         display: flex;
@@ -43,29 +43,17 @@
         align-items: center;
         text-align: center;
       }
-      #closeButton {
-        position: absolute;
-        top: 1px;
-        right: 2px;
-        background-color: transparent;
-        border: none;
-        font-size: 16px;
-        color: red;
-        cursor: pointer;
-        padding-bottom: 10px;
-        display: flex;
-      }
       h1 {
         text-align: center;
         padding-top: 10px;
         color: white;
+        font-size: 32;
       }
     </style>
   </head>
   <body>
-      <button id="closeButton">&#10006;</button> 
       <div class="container">
-        <h1>Yujafy</h1>
+        <h1>Yujafiy</h1>
         <textarea id="textArea" rows="8" cols="30" maxlength="500"
             placeholder="1. Copy and paste your transcript&#10;2. Select a voice&#10;3. Press process"></textarea>
         <select id="voicesList">
