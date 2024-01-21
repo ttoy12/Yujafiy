@@ -1,24 +1,29 @@
 {
-    "manifest_version": 3,
-    "name": "Yujafiy",
-    "version": "1.0",
-    "permissions": [
-      "http://localhost:5000/*",
-      "http://client.cors-api.appspot.com",
-      "https://api.topmediai.com/v1/text2speech",
-      "clipboardRead"
-    ],
-    "action": {
-      "default_popup": "popup.html"
-    },
-    "icons": {
-        "512": "voice.png"
-    },
-    "web_accessible_resources": [
-        {
-            "resources": ["*"],
-            "matches": ["https://files.topmediai.com/*"]
-        }
-    ]
+  "manifest_version": 2,
+  "name": "ujafiy",
+  "version": "1.0",
+  "description": "Yujafy but it takes the captions out",
+  "permissions": [
+    "webRequest", 
+    "webRequestBlocking", 
+    "<all_urls>", 
+    "tabs", 
+    "debugger",
+    "http://localhost:5000/*",
+    "http://client.cors-api.appspot.com",
+    "https://api.topmediai.com/v1/text2speech",
+    "clipboardRead"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "512": "voice.png"
+  },
+  "web_accessible_resources": [
+    "*"
+  ]
 }
-  
