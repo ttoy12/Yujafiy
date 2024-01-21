@@ -123,6 +123,18 @@ async function playAudioFiles(url_list) {
     console.log("audio playing", url_list);
 
     const playNextAudio = async (index) => {
+        // Start video playback when playing the first audio clip
+        if (index === 0) {
+            // Find the video element on the page
+            const videoElement = document.querySelector('video');
+
+            // Check if a video element is found
+            if (videoElement) {
+                // Start video playback
+                videoElement.play();
+            }
+        }
+        
         if (index < url_list.length) {
             console.log('playing clip', index);
         const audio = new Audio(url_list[index]);
@@ -155,3 +167,4 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     //   console.log("POPUP.js, received the data!", receivedData);
     }
   });
+  
