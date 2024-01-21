@@ -85,3 +85,15 @@ async function processText(text) {
         });
 
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Add event listener for close button
+    var closeButton = document.getElementById("closeButton");
+    closeButton.addEventListener('click', function () {
+        // Close the popup by getting the current window and closing it
+        var views = chrome.extension.getViews({ type: "popup" });
+        if (views.length > 0) {
+            views[0].close();
+        }
+    });
+});

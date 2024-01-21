@@ -8,12 +8,29 @@
         height: 200px;
         padding: 10px;
       }
+      #voicesList {
+        width: 100%; /* Set the width to 100% of its container */
+        margin-top: 10px; /* Add some top margin for spacing */
+        padding: 5px; /* Add padding for better visual appearance */
+      }
+      #closeButton {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
+    <button id="closeButton">&#10006;</button>
     <textarea id="textArea" rows="8" cols="30"></textarea>
     <button id="pasteButton">Paste</button>
+    <select id="voicesList"></select>
     <button id="processButton">Process</button>
+    <script src="voiceDropDown.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>
