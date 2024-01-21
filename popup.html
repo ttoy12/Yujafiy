@@ -6,16 +6,17 @@
       body {
         width: 300px;
         height: 400px;
+        margin: 0;
+        font-family: 'Arial', sans-serif;
       }
       .container {
         width: 100%;
         height: 100%;
         justify-content: center;
         align-items: center;
-        background-color: lightgreen;
-        border-width: 3px;
-        border-color: black;
-        border-radius: 10px;
+        background-color:  #b3d9ff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* Ensure border-radius clips properly */
       }
       #voicesList {
         width: 100%; /* Set the width to 100% of its container */
@@ -24,48 +25,50 @@
       }
       #textArea {
         margin-bottom: 10px;
-        width: 98.5%;
+        width: 100%;
         height: 200px;
         resize: none;
         text-align: center;
-        border: none;
+        border-color: black;
+        border-width: 1px;
+        border-style: solid;
+        padding: 5px;
+        box-sizing: border-box;
       }
       .processButtonContainer {
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        margin: 15px;
+        margin: 10px;
       }
       #processButton {
-        margin-top: 10px;
         align-self: center;
         align-items: center;
         text-align: center;
-      }
-      #closeButton {
-        position: absolute;
-        top: 1px;
-        right: 2px;
-        background-color: transparent;
+        background-color: #4CAF50;
+        color: white;
         border: none;
-        font-size: 16px;
-        color: red;
+        padding: 10px 20px;
+        border-radius: 5px;
         cursor: pointer;
-        padding-bottom: 10px;
-        display: flex;
+        transition: background-color 0.3s ease;
+      }
+      #processButton:hover {
+        background-color: #45a049;
       }
       h1 {
         text-align: center;
         padding-top: 10px;
         color: white;
+        font-size: 32px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       }
     </style>
   </head>
   <body>
-      <button id="closeButton">&#10006;</button> 
       <div class="container">
-        <h1>Yujafy</h1>
+        <h1>Yujafiy</h1>
         <textarea id="textArea" rows="8" cols="30" maxlength="500"
             placeholder="1. Copy and paste your transcript&#10;2. Select a voice&#10;3. Press process"></textarea>
         <select id="voicesList">

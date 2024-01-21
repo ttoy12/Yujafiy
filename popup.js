@@ -104,15 +104,3 @@ async function playAudioFiles(url_list) {
   // Start playing audio from the first URL in the list
   playNextAudio(0);
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Add event listener for close button
-    var closeButton = document.getElementById("closeButton");
-    closeButton.addEventListener('click', function () {
-        // Close the popup by getting the current window and closing it
-        var views = chrome.extension.getViews({ type: "popup" });
-        if (views.length > 0) {
-            views[0].close();
-        }
-    });
-});
